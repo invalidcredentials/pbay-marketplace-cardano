@@ -1,0 +1,1241 @@
+/* PBay Admin Styles */
+
+.pbay-admin { max-width: 1200px; }
+
+.pbay-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.pbay-card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Card Header (icon + title + description) */
+.pbay-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.pbay-card-icon {
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #f0f6fc;
+    color: #2271b1;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.pbay-card-header h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+    line-height: 1.3;
+    font-size: 16px;
+}
+
+.pbay-card-desc {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: #666;
+}
+
+/* Field Groups */
+.pbay-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pbay-field label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #1d2327;
+}
+
+.pbay-field input[type="text"],
+.pbay-field input[type="password"],
+.pbay-field select {
+    width: 100%;
+    max-width: 400px;
+}
+
+.pbay-field .large-text {
+    max-width: 100%;
+}
+
+.pbay-field .description {
+    margin-top: 4px;
+}
+
+.pbay-field-row {
+    display: flex;
+    gap: 20px;
+}
+
+.pbay-field-half {
+    flex: 1;
+    min-width: 0;
+}
+
+.pbay-field-half input[type="password"],
+.pbay-field-half input[type="text"],
+.pbay-field-half select {
+    max-width: 100%;
+}
+
+.pbay-field-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.pbay-test-result {
+    font-size: 13px;
+}
+
+/* Toggle Labels */
+.pbay-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal !important;
+    cursor: pointer;
+}
+
+.pbay-toggle-label input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Callout Boxes */
+.pbay-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.pbay-callout .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.pbay-callout strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.pbay-callout p {
+    margin: 2px 0 8px;
+}
+
+.pbay-callout code {
+    display: inline-block;
+    font-size: 11px;
+    color: #50575e;
+    margin-right: 8px;
+}
+
+.pbay-callout a:not(.button) {
+    font-size: 12px;
+}
+
+.pbay-callout-success {
+    background: #edfaef;
+    border: 1px solid #b8e6c0;
+}
+
+.pbay-callout-success .dashicons {
+    color: #00a32a;
+}
+
+.pbay-callout-warning {
+    background: #fff8e5;
+    border: 1px solid #f0d68a;
+}
+
+.pbay-callout-warning .dashicons {
+    color: #dba617;
+}
+
+.pbay-address-inline {
+    word-break: break-all;
+}
+
+/* Status Badges (tables) */
+.pbay-status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.pbay-status-draft { background: #f0f0f1; color: #666; }
+.pbay-status-minting { background: #fff8e5; color: #b87e00; }
+.pbay-status-active { background: #edfaef; color: #00a32a; }
+.pbay-status-sold { background: #e3f2fd; color: #1565c0; }
+.pbay-status-archived { background: #f0f0f1; color: #50575e; }
+.pbay-status-cancelled { background: #fce8e8; color: #d63638; }
+.pbay-status-expired { background: #fce8e8; color: #d63638; }
+.pbay-status-pending { background: #fff8e5; color: #b87e00; }
+.pbay-status-paid { background: #edfaef; color: #00a32a; }
+.pbay-status-processing { background: #e3f2fd; color: #1565c0; }
+.pbay-status-shipped { background: #f3eefa; color: #7c3aed; }
+.pbay-status-completed { background: #e0f2e0; color: #1a6b1a; }
+.pbay-status-disputed { background: #fce8e8; color: #d63638; }
+.pbay-status-refunded { background: #f0f0f1; color: #666; }
+
+/* Info Rows (order detail) */
+.pbay-info-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+    align-items: baseline;
+}
+
+.pbay-info-row:last-child { border-bottom: none; }
+
+.pbay-info-label {
+    width: 140px;
+    flex-shrink: 0;
+    font-weight: 600;
+    color: #50575e;
+}
+
+.pbay-info-value {
+    flex: 1;
+    color: #1d2327;
+    word-break: break-word;
+}
+
+.pbay-info-value code {
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/* Inventory Thumb */
+.pbay-inventory-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.pbay-inventory-thumb-placeholder {
+    width: 50px;
+    height: 50px;
+    background: #f0f0f1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c3c4c7;
+}
+
+.pbay-inventory-thumb-placeholder .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* Stat Cards polish */
+.pbay-stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.pbay-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #2271b1;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Export / action bar */
+.pbay-table-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+/* Policy ID code in tables */
+.pbay-policy-code {
+    font-size: 11px;
+    color: #50575e;
+    cursor: help;
+}
+
+/* Tracking form in order detail */
+.pbay-tracking-form {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.pbay-tracking-field {
+    flex: 1;
+    min-width: 160px;
+}
+
+.pbay-tracking-field label {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    color: #50575e;
+    margin-bottom: 4px;
+}
+
+.pbay-tracking-field input {
+    width: 100%;
+}
+
+/* NFT delivery status */
+.pbay-delivery-delivered {
+    color: #00a32a;
+    font-weight: 600;
+}
+
+.pbay-delivery-pending {
+    color: #b87e00;
+    font-weight: 600;
+}
+
+/* Wizard Steps */
+.pbay-wizard-steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pbay-step {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-right: 1px solid #ddd;
+}
+
+.pbay-step:last-child { border-right: none; }
+
+.pbay-step span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    background: #ccc;
+    color: #fff;
+    font-size: 12px;
+    margin-right: 6px;
+}
+
+.pbay-step.active {
+    background: #2271b1;
+    color: #fff;
+}
+
+.pbay-step.active span {
+    background: #fff;
+    color: #2271b1;
+}
+
+.pbay-step.completed {
+    background: #00a32a;
+    color: #fff;
+}
+
+.pbay-step.completed span {
+    background: #fff;
+    color: #00a32a;
+}
+
+.pbay-wizard-panel { display: none; }
+.pbay-wizard-panel.active { display: block; }
+
+.pbay-wizard-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+/* Image Upload */
+.pbay-image-upload { text-align: center; }
+
+.pbay-image-upload img {
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pbay-placeholder {
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    background: #f9f9f9;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.pbay-placeholder.pbay-drag-over {
+    border-color: #2271b1;
+    background: #f0f6fc;
+    color: #2271b1;
+}
+
+/* Gallery Grid */
+.pbay-gallery-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.pbay-gallery-item {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.pbay-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pbay-gallery-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(214,54,56,0.9);
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pbay-gallery-remove:hover {
+    background: #d63638;
+}
+
+/* Meta Rows */
+.pbay-meta-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.pbay-meta-row input {
+    flex: 1;
+}
+
+/* Stats Row */
+.pbay-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.pbay-stat-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.pbay-stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1d2327;
+}
+
+.pbay-stat-label {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Order Detail Grid */
+.pbay-order-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.pbay-order-detail-grid .pbay-card:last-child {
+    grid-column: 1 / -1;
+}
+
+/* Mnemonic Display */
+.pbay-mnemonic-warning {
+    animation: pbay-pulse 2s ease-in-out 3;
+}
+
+@keyframes pbay-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(214, 54, 56, 0); }
+    50% { box-shadow: 0 0 0 8px rgba(214, 54, 56, 0.2); }
+}
+
+/* Wallet Dashboard */
+.pbay-wallet-dashboard {
+    border-left: 4px solid #2271b1;
+}
+
+.pbay-wallet-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Network Badge */
+.pbay-network-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pbay-network-preprod {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.pbay-network-mainnet {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Balance Display */
+.pbay-balance-display {
+    padding: 16px 0;
+}
+
+.pbay-balance-ada {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1d2327;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace;
+}
+
+.pbay-balance-assets-summary {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #666;
+}
+
+.pbay-balance-assets-list {
+    margin-top: 10px;
+}
+
+/* Asset Grid (NFT tiles) */
+.pbay-assets-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pbay-asset-tile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f6f7f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 8px 12px 8px 8px;
+    min-width: 200px;
+    max-width: 280px;
+}
+
+.pbay-asset-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e9ecef;
+}
+
+.pbay-asset-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pbay-asset-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.pbay-asset-info {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.pbay-asset-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d2327;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pbay-asset-policy {
+    font-size: 11px;
+    color: #888;
+}
+
+.pbay-asset-policy code {
+    font-size: 10px;
+}
+
+.pbay-asset-qty {
+    font-size: 11px;
+    color: #666;
+    font-weight: 600;
+}
+
+.pbay-asset-tile {
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.pbay-asset-tile:hover {
+    border-color: #2271b1;
+}
+
+.pbay-asset-tile.active {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Expanded NFT detail card */
+.pbay-asset-detail {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.pbay-detail-inner {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pbay-detail-header {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.pbay-detail-image {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+}
+
+.pbay-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pbay-detail-title h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: #1d2327;
+}
+
+.pbay-detail-fingerprint {
+    margin-bottom: 8px;
+}
+
+.pbay-detail-fingerprint code {
+    font-size: 11px;
+    color: #666;
+}
+
+.pbay-detail-ids {
+    font-size: 12px;
+    color: #50575e;
+    line-height: 1.8;
+}
+
+.pbay-detail-ids code {
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/* Metadata table */
+.pbay-detail-meta {
+    border-top: 1px solid #eee;
+    padding-top: 14px;
+}
+
+.pbay-detail-meta h4 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+}
+
+.pbay-detail-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pbay-detail-meta-table tr:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pbay-meta-key {
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+    padding: 6px 12px 6px 0;
+    white-space: nowrap;
+    vertical-align: top;
+    width: 140px;
+}
+
+.pbay-meta-val {
+    font-size: 12px;
+    color: #1d2327;
+    padding: 6px 0;
+    word-break: break-word;
+}
+
+.pbay-meta-link {
+    color: #2271b1;
+    word-break: break-all;
+}
+
+.pbay-meta-long {
+    max-height: 60px;
+    overflow-y: auto;
+    font-size: 11px;
+    background: #f9f9f9;
+    padding: 6px 8px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+.pbay-meta-empty {
+    color: #bbb;
+}
+
+.pbay-detail-close {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #666;
+    text-decoration: none;
+}
+
+.pbay-detail-close:hover {
+    color: #2271b1;
+}
+
+.pbay-balance-loading {
+    color: #666;
+    font-style: italic;
+}
+
+.pbay-balance-error {
+    color: #d63638;
+}
+
+.pbay-balance-no-key {
+    color: #996800;
+    background: #fff3cd;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Wallet Details */
+.pbay-wallet-details {
+    margin-top: 0;
+}
+
+.pbay-address-code {
+    word-break: break-all;
+    font-size: 12px;
+}
+
+/* Wallet Actions */
+.pbay-wallet-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+
+.pbay-wallet-delete-link {
+    margin-left: auto;
+}
+
+.pbay-wallet-delete-link a {
+    color: #d63638;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.pbay-wallet-delete-link a:hover {
+    text-decoration: underline;
+}
+
+/* Send ADA Form */
+.pbay-send-form {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.pbay-send-form h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.pbay-send-form-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.pbay-send-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.pbay-send-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.pbay-send-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.pbay-send-status {
+    margin-top: 12px;
+}
+
+.pbay-send-status .notice.inline {
+    margin: 0;
+}
+
+/* Funding Reminder */
+.pbay-funding-reminder {
+    margin-top: 15px;
+    padding: 12px 15px;
+    background: #fff3cd;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+/* Archived Wallets */
+.pbay-archived-header {
+    user-select: none;
+}
+
+.pbay-archived-wallets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.pbay-archived-card {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.pbay-archived-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pbay-archived-card-details {
+    margin-bottom: 10px;
+}
+
+.pbay-archived-address code {
+    font-size: 11px;
+    color: #666;
+    word-break: break-all;
+}
+
+.pbay-archived-meta {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.pbay-archived-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.pbay-delete-archived {
+    color: #d63638;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.pbay-delete-archived:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   Appearance Page
+   ======================================== */
+
+/* Preset Grid */
+.pbay-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.pbay-preset-card {
+    position: relative;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.pbay-preset-card:hover {
+    border-color: #2271b1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pbay-preset-card.active {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.pbay-preset-swatch {
+    height: 64px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.pbay-swatch-card {
+    width: 28px;
+    height: 36px;
+    border-radius: 4px;
+    border: 2px solid;
+}
+
+.pbay-swatch-accent {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.pbay-swatch-text {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+.pbay-preset-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.pbay-preset-check {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 16px;
+    color: #2271b1;
+    font-weight: bold;
+}
+
+/* Color Dropdowns Grid */
+.pbay-color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.pbay-color-field label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #1d2327;
+}
+
+.pbay-color-field select {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Theme Preview */
+.pbay-theme-preview {
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    transition: background 0.3s;
+    background: #0a0e27;
+}
+
+.pbay-preview-card {
+    width: 220px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.08);
+}
+
+.pbay-preview-image {
+    height: 120px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: rgba(255,255,255,0.2);
+}
+
+.pbay-preview-image::after {
+    content: "\1F4F7";
+}
+
+.pbay-preview-body {
+    padding: 14px;
+}
+
+.pbay-preview-category {
+    font-size: 11px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    background: rgba(0,212,255,0.1);
+    color: #00d4ff;
+    border: 1px solid rgba(0,212,255,0.2);
+}
+
+.pbay-preview-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #f8f9fa;
+}
+
+.pbay-preview-price {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.pbay-preview-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #00d4ff;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: default;
+    text-align: center;
+    transition: all 0.3s;
+    background: transparent;
+    color: #00d4ff;
+}
+
+/* Shortcode Table */
+.pbay-shortcode-table {
+    margin-top: 12px;
+}
+
+.pbay-shortcode-table code {
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.pbay-shortcode-table td {
+    vertical-align: top;
+    padding: 12px 8px;
+}
+
+.pbay-copy-shortcode {
+    font-size: 12px !important;
+    min-height: 28px !important;
+    padding: 2px 10px !important;
+}
+
+.pbay-copy-shortcode.copied {
+    color: #00a32a;
+    border-color: #00a32a;
+}
+
+.pbay-shortcode-tips {
+    margin-top: 20px;
+    background: #f6f7f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+}
+
+.pbay-shortcode-tips h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+.pbay-shortcode-tips ol {
+    margin: 0 0 8px;
+    padding-left: 20px;
+}
+
+.pbay-shortcode-tips li {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.pbay-shortcode-tips p {
+    margin: 0;
+    font-size: 13px;
+    color: #50575e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pbay-stats-row { grid-template-columns: repeat(2, 1fr); }
+    .pbay-order-detail-grid { grid-template-columns: 1fr; }
+    .pbay-wizard-steps { flex-wrap: wrap; }
+    .pbay-step { flex: 0 0 33.33%; border-bottom: 1px solid #ddd; }
+    .pbay-send-form-fields { flex-direction: column; }
+    .pbay-archived-wallets { grid-template-columns: 1fr; }
+    .pbay-detail-header { flex-direction: column; }
+    .pbay-detail-image { width: 80px; height: 80px; }
+    .pbay-meta-key { width: auto; white-space: normal; }
+    .pbay-preset-grid { grid-template-columns: repeat(2, 1fr); }
+    .pbay-color-grid { grid-template-columns: 1fr; }
+    .pbay-field-row { flex-direction: column; }
+    .pbay-info-row { flex-direction: column; gap: 2px; }
+    .pbay-info-label { width: auto; }
+    .pbay-tracking-form { flex-direction: column; }
+}
