@@ -14,6 +14,7 @@ class AdminController {
         add_action('wp_ajax_pbay_update_tracking', [self::class, 'ajaxUpdateTracking']);
         add_action('wp_ajax_pbay_send_nft', [self::class, 'ajaxSendNft']);
         add_action('wp_ajax_pbay_export_orders_csv', [self::class, 'ajaxExportOrdersCsv']);
+        add_action('wp_ajax_pbay_accept_tos', [self::class, 'ajaxAcceptTos']);
     }
 
     /**
@@ -69,6 +70,16 @@ class AdminController {
         $use_store_wallet_payout = get_option('pbay_use_store_wallet_payout', 0);
 
         include PBAY_PLUGIN_DIR . 'includes/views/admin/setup.php';
+    }
+
+    /**
+     * Render How It Works page
+     */
+    public static function renderHowItWorksPage() {
+        if (!current_user_can('manage_options')) {
+            wp_die('Insufficient permissions');
+        }
+        include PBAY_PLUGIN_DIR . 'includes/views/admin/how-it-works.php';
     }
 
     /**
@@ -287,5 +298,17 @@ class AdminController {
 
         fclose($output);
         exit;
+    }
+
+    public static function ajaxAcceptTos() {
+        check_ajax_referer('pbay_admin_nonce', 'nonce');
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => 'Insufficient permissions']);
+        }
+
+        $agreed = intval($_POST['agreed'] ?? 0);
+        update_option('pbay_tos_agreed', $agreed);
+
+        wp_send_json_success(['agreed' => $agreed]);
     }
 }

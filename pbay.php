@@ -2,7 +2,7 @@
 /*
 Plugin Name: PBay - Cardano Marketplace
 Description: Web2/Web3 hybrid marketplace powered by Cardano. NFT as Inventory - sellers mint CIP-25 NFTs, buyers pay in ADA via CIP-30 wallets.
-Version: 0.1.0-alpha
+Version: 0.1.1-alpha
 Author: PB
 Text Domain: pbay
 */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PBAY_VERSION', '0.1.0-alpha');
+define('PBAY_VERSION', '0.1.1-alpha');
 define('PBAY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PBAY_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -106,6 +106,15 @@ function pbay_admin_menu() {
 
     add_submenu_page(
         'pbay-setup',
+        'How It Works',
+        'How It Works',
+        'manage_options',
+        'pbay-how-it-works',
+        [PBay\Controllers\AdminController::class, 'renderHowItWorksPage']
+    );
+
+    add_submenu_page(
+        'pbay-setup',
         'Listing Categories',
         'Listing Categories',
         'manage_options',
@@ -190,6 +199,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('pbay_admin_nonce'),
         'network' => get_option('pbay_network', 'preprod'),
+        'tosAgreed' => (int) get_option('pbay_tos_agreed', 0),
     ]);
 });
 
@@ -244,6 +254,28 @@ add_action('wp_enqueue_scripts', function () {
         ]);
     }
 });
+
+// ============================================================
+// ToS Gate: Redirect to How It Works if not agreed
+// ============================================================
+
+add_action('admin_init', function () {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+
+    if (get_option('pbay_tos_agreed', 0)) {
+        return;
+    }
+
+    $page = isset($_GET['page']) ? $_GET['page'] : '';
+
+    // Only act on PBay pages (except how-it-works)
+    if (strpos($page, 'pbay') === 0 && $page !== 'pbay-how-it-works') {
+        wp_safe_redirect(admin_url('admin.php?page=pbay-how-it-works'));
+        exit;
+    }
+}, 5);
 
 // ============================================================
 // DB Migration (adds new columns via dbDelta on version change)

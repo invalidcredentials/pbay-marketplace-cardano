@@ -351,8 +351,9 @@ All admin pages share a consistent design language: icon card headers, field gro
 
 ```
 pbay/
-+-- pbay.php                              # Bootstrap, activation, menus, enqueue, migrations
++-- pbay.php                              # Bootstrap, activation, menus, enqueue, migrations, ToS gate
 +-- uninstall.php                         # Clean uninstall (drops tables + options)
++-- CHANGELOG.md                          # Version history
 |
 +-- includes/
 |   +-- helpers/
@@ -393,6 +394,8 @@ pbay/
 |       |   +-- orders.php                # Orders table + stats dashboard
 |       |   +-- order-detail.php          # Order detail: info rows, tracking, NFT delivery
 |       |   +-- appearance.php            # Theme presets, color dropdowns, preview, shortcodes
+|       |   +-- how-it-works.php          # Quick guide + full docs (tabbed)
+|       |   +-- tos-card.php             # Terms of Service card partial
 |       |   +-- policy-wallet.php         # Wallet generation + management
 |       |
 |       +-- frontend/
@@ -606,6 +609,12 @@ PBay builds on top of battle-tested components:
 | **anvil-playground** | TypeScript prototype | CIP-25 metadata chunking logic (ported to PHP) |
 | **[CardanoPress](https://cardanopress.io/)** | WordPress plugin | CIP-30 wallet connection in site header |
 | **[Ada Anvil](https://ada-anvil.io/)** | API service | Transaction building, policy generation, submission |
+
+---
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ---
 

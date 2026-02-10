@@ -1316,6 +1316,57 @@
     });
 
     // ========================================
+    // How It Works: Terms of Service
+    // ========================================
+
+    $(document).on('click', '#pbay-read-tos', function (e) {
+        e.preventDefault();
+        var $text = $('#pbay-tos-text');
+        $text.slideToggle(200);
+        // Enable the checkbox once the ToS has been expanded
+        $('#pbay-agree-tos').prop('disabled', false);
+    });
+
+    $(document).on('change', '#pbay-agree-tos', function () {
+        var agreed = $(this).is(':checked') ? 1 : 0;
+
+        $.post(pbayAdmin.ajaxurl, {
+            action: 'pbay_accept_tos',
+            nonce: pbayAdmin.nonce,
+            agreed: agreed,
+        }, function (response) {
+            if (!response.success) return;
+
+            var $callout = $('#pbay-tos-callout');
+            if (agreed) {
+                $callout.removeClass('pbay-callout-warning').addClass('pbay-callout-success');
+                $callout.html(
+                    '<span class="dashicons dashicons-yes-alt"></span>' +
+                    '<div><strong>Terms accepted</strong> You have agreed to the PBay Terms of Service.</div>'
+                );
+            } else {
+                $callout.removeClass('pbay-callout-success').addClass('pbay-callout-warning');
+                $callout.html(
+                    '<span class="dashicons dashicons-warning"></span>' +
+                    '<div><strong>Acceptance required</strong> You must read and accept the Terms of Service before using PBay. Other pages are locked until you agree.</div>'
+                );
+            }
+        });
+    });
+
+    // ========================================
+    // How It Works: Tab Switching
+    // ========================================
+
+    $(document).on('click', '.pbay-tab', function () {
+        var tab = $(this).data('tab');
+        $('.pbay-tab').removeClass('active');
+        $(this).addClass('active');
+        $('.pbay-tab-panel').removeClass('active');
+        $('.pbay-tab-panel[data-tab="' + tab + '"]').addClass('active');
+    });
+
+    // ========================================
     // Init
     // ========================================
 
