@@ -1,19 +1,20 @@
-# PBay - Cardano-Powered Marketplace
+# PBay
 
-**NFT-as-inventory ecommerce for WordPress. Mint products as CIP-25 NFTs, accept ADA payments via CIP-30 wallets, deliver proof-of-purchase on-chain. No WooCommerce, no Stripe, no middleman.**
+**Free, lightweight ecommerce for WordPress — powered by Cardano under the hood.** Instant payments, instant payouts, cryptographic proof of every sale. No WooCommerce, no Stripe, no payment processor, no middleman.
 
-PBay turns any WordPress site into a web3 marketplace where every product listing is backed by an on-chain NFT, every payment is a Cardano transaction, and every buyer gets cryptographic proof of purchase delivered directly to their wallet.
+PBay is a full marketplace plugin built on an ultra-light stack: WordPress + PHP + the Cardano blockchain. Sellers list products, buyers pay in ADA straight from their wallet, and the money lands in the seller's wallet in seconds — not days. Every product is backed by an on-chain NFT. Every purchase generates a tamper-proof receipt delivered directly to the buyer's wallet. No accounts, no passwords, no chargebacks.
 
 ---
 
 ## What Makes This Different
 
-Traditional ecommerce plugins process payments through banks and payment processors. PBay replaces that entire stack with Cardano:
+Traditional ecommerce plugins sit on top of payment processors, subscription fees, and processing delays. PBay cuts all of that out:
 
-- **Products are NFTs.** Each listing mints a CIP-25 NFT with product metadata, images pinned to IPFS, and custom attributes - all on-chain.
-- **Payments are transactions.** Buyers pay in ADA directly from their Cardano wallet. No payment gateway, no processing fees, no chargebacks.
-- **Receipts are on-chain.** After payment, the product NFT transfers to the buyer's wallet automatically - cryptographic proof of purchase that lives forever.
-- **Identity is a wallet.** Buyers connect their Cardano wallet to view orders, track shipments, and verify NFT delivery. No accounts, no passwords, no email required.
+- **Instant settlement.** Payments confirm on the Cardano network in seconds. No 3-5 business day holds, no rolling reserves, no processor taking a cut.
+- **Zero platform fees.** No monthly subscription, no per-transaction percentage, no premium tiers. The plugin is free. Network fees are fractions of a cent.
+- **Tamper-proof receipts.** Every purchase mints a cryptographic receipt delivered to the buyer's wallet — proof of purchase that can't be faked, altered, or lost.
+- **No accounts needed.** Buyers connect a Cardano wallet to browse, buy, and track orders. No signups, no passwords, no email harvesting.
+- **Products backed by NFTs.** Each listing is a CIP-25 NFT with metadata, images pinned to IPFS, and custom attributes — all verifiable on-chain.
 
 The entire crypto stack runs in pure PHP. No Node.js, no Python, no external binaries. If your server runs WordPress, it runs PBay.
 
