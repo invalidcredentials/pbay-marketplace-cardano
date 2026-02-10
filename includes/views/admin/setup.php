@@ -92,7 +92,7 @@
                 <span class="dashicons dashicons-admin-tools pbay-card-icon"></span>
                 <div>
                     <h2>Anvil API Keys</h2>
-                    <p class="pbay-card-desc">Required for building and submitting Cardano transactions.</p>
+                    <p class="pbay-card-desc">Required for building and submitting Cardano transactions. <a href="https://ada-anvil.io/services/api" target="_blank">Get your free API keys here</a>.</p>
                 </div>
             </div>
             <div class="pbay-field-group">
