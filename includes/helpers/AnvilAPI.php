@@ -4,6 +4,50 @@ namespace PBay\Helpers;
 class AnvilAPI {
 
     /**
+     * Call Anvil utils endpoints using PBay-provided keys (utils access enabled).
+     * Regular user keys don't have utils toggled on, so policy generation
+     * routes through these keys while all other calls use the user's key.
+     */
+    private static function callUtils($endpoint, $data) {
+        $network = get_option('pbay_network', 'preprod');
+
+        if ($network === 'mainnet') {
+            $api_url = 'https://prod.api.ada-anvil.app/v2/services';
+            $api_key = 'mainnet_GUztXoIEyulcuuqIeS5TPy8fJR1BMnAJHQtnFQDC';
+        } else {
+            $api_url = 'https://preprod.api.ada-anvil.app/v2/services';
+            $api_key = 'testnet_FomUHyfbv1QeO1LifQfAml9v5xO2XbRTdc9k7BIY';
+        }
+
+        $full_url = $api_url . '/' . $endpoint;
+
+        $response = wp_remote_post($full_url, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-Api-Key' => $api_key,
+            ],
+            'body' => wp_json_encode($data),
+            'timeout' => 30,
+        ]);
+
+        if (is_wp_error($response)) {
+            error_log('[PBay] WP_Error (utils): ' . $response->get_error_message());
+            return $response;
+        }
+
+        $body = wp_remote_retrieve_body($response);
+        $decoded = json_decode($body, true);
+        $http_code = wp_remote_retrieve_response_code($response);
+
+        if ($http_code !== 200) {
+            error_log('[PBay] API error (utils, HTTP ' . $http_code . '): ' . $body);
+            return new \WP_Error('api_error', $decoded['message'] ?? 'Utils API request failed (HTTP ' . $http_code . ')', $decoded);
+        }
+
+        return $decoded;
+    }
+
+    /**
      * Call Anvil API endpoint
      */
     public static function call($endpoint, $data) {
@@ -159,7 +203,7 @@ class AnvilAPI {
 
         // Convert expiration to slot
         $expiration_timestamp_ms = strtotime($expiration_date) * 1000;
-        $slot_response = self::call('utils/network/time-to-slot', [
+        $slot_response = self::callUtils('utils/network/time-to-slot', [
             'time' => $expiration_timestamp_ms,
         ]);
 
@@ -182,7 +226,7 @@ class AnvilAPI {
         ];
 
         // Serialize to get policy ID
-        $serialize_response = self::call('utils/native-scripts/serialize', [
+        $serialize_response = self::callUtils('utils/native-scripts/serialize', [
             'schema' => $policy_schema,
         ]);
 
