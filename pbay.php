@@ -2,7 +2,7 @@
 /*
 Plugin Name: PBay - Cardano Marketplace
 Description: Web2/Web3 hybrid marketplace powered by Cardano. NFT as Inventory - sellers mint CIP-25 NFTs, buyers pay in ADA via CIP-30 wallets.
-Version: 0.1.1-alpha
+Version: 0.1.2-alpha
 Author: PB
 Text Domain: pbay
 */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PBAY_VERSION', '0.1.1-alpha');
+define('PBAY_VERSION', '0.1.2-alpha');
 define('PBAY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PBAY_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -282,7 +282,7 @@ add_action('admin_init', function () {
 // ============================================================
 
 add_action('admin_init', function () {
-    $current_db_version = '1.4.0';
+    $current_db_version = '1.5.0';
     $installed_version = get_option('pbay_db_version', '1.0.0');
 
     if (version_compare($installed_version, $current_db_version, '<')) {
@@ -305,11 +305,29 @@ add_action('admin_init', function () {
             $wpdb->query("ALTER TABLE $listings_table ADD COLUMN gallery_ipfs_cids text DEFAULT NULL AFTER gallery_ids");
         }
 
+        // Listings: shipping_rate column
+        $col_shipping_rate = $wpdb->get_results("SHOW COLUMNS FROM $listings_table LIKE 'shipping_rate'");
+        if (empty($col_shipping_rate)) {
+            $wpdb->query("ALTER TABLE $listings_table ADD COLUMN shipping_rate decimal(10,2) NOT NULL DEFAULT 0.00 AFTER shipping_notes");
+        }
+
+        // Listings: ships_to column
+        $col_ships_to = $wpdb->get_results("SHOW COLUMNS FROM $listings_table LIKE 'ships_to'");
+        if (empty($col_ships_to)) {
+            $wpdb->query("ALTER TABLE $listings_table ADD COLUMN ships_to varchar(255) DEFAULT NULL AFTER shipping_rate");
+        }
+
         // Orders: nft_delivery_tx_hash (dbDelta misses this on existing tables)
         $orders_table = $wpdb->prefix . 'pbay_orders';
         $col_nft_delivery = $wpdb->get_results("SHOW COLUMNS FROM $orders_table LIKE 'nft_delivery_tx_hash'");
         if (empty($col_nft_delivery)) {
             $wpdb->query("ALTER TABLE $orders_table ADD COLUMN nft_delivery_tx_hash varchar(128) DEFAULT NULL AFTER tx_hash");
+        }
+
+        // Orders: shipping_rate column
+        $col_order_shipping = $wpdb->get_results("SHOW COLUMNS FROM $orders_table LIKE 'shipping_rate'");
+        if (empty($col_order_shipping)) {
+            $wpdb->query("ALTER TABLE $orders_table ADD COLUMN shipping_rate decimal(10,2) NOT NULL DEFAULT 0.00 AFTER price_usd");
         }
 
         update_option('pbay_db_version', $current_db_version);

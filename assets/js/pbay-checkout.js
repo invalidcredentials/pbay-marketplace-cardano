@@ -100,9 +100,14 @@
     // Buy Now -> Open Modal
     // ========================================
 
+    var currentItemPrice = null;
+    var currentShippingRate = null;
+
     $(document).on('click', '#pbay-buy-now', function () {
         currentListingId = $(this).data('listing-id');
         currentPriceUsd = $(this).data('price-usd');
+        currentItemPrice = parseFloat($(this).data('item-price')) || 0;
+        currentShippingRate = parseFloat($(this).data('shipping-rate')) || 0;
 
         showCheckoutModal();
         goToCheckoutStep(1);
@@ -233,6 +238,12 @@
         var productTitle = $productDetail.find('.pbay-product-title').text() || 'Product';
 
         $('#pbay-summary-product').text(productTitle);
+        $('#pbay-summary-item-price').text('$' + currentItemPrice.toFixed(2));
+        if (currentShippingRate > 0) {
+            $('#pbay-summary-shipping-cost').text('$' + currentShippingRate.toFixed(2)).closest('.pbay-summary-item').show();
+        } else {
+            $('#pbay-summary-shipping-cost').text('Free').closest('.pbay-summary-item').show();
+        }
         $('#pbay-summary-price-usd').text('$' + parseFloat(currentPriceUsd).toFixed(2));
         $('#pbay-summary-shipping').text(shippingParts.join(', ') || 'N/A');
 
@@ -383,19 +394,19 @@
             if (response.success) {
                 var o = response.data.order;
                 var html = '<h4>Order Found</h4>';
-                html += '<table style="width:100%;">';
-                html += '<tr><td><strong>Order ID:</strong></td><td>' + (o.order_id || '') + '</td></tr>';
-                html += '<tr><td><strong>Product:</strong></td><td>' + (response.data.listing_title || '') + '</td></tr>';
-                html += '<tr><td><strong>Status:</strong></td><td>' + (o.status || '') + '</td></tr>';
-                html += '<tr><td><strong>Amount:</strong></td><td>$' + parseFloat(o.price_usd).toFixed(2) + ' (' + parseFloat(o.price_ada).toFixed(2) + ' ADA)</td></tr>';
+                html += '<div class="pbay-detail-card">';
+                html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Order ID:</span><span>' + escHtml(o.order_id || '') + '</span></div>';
+                html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Product:</span><span>' + escHtml(response.data.listing_title || '') + '</span></div>';
+                html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Status:</span><span>' + escHtml(o.status || '') + '</span></div>';
+                html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Amount:</span><span>$' + parseFloat(o.price_usd).toFixed(2) + ' (' + parseFloat(o.price_ada).toFixed(2) + ' ADA)</span></div>';
                 if (o.tx_hash) {
-                    html += '<tr><td><strong>TX:</strong></td><td><a href="' + pbayCheckout.explorer_url + '/transaction/' + o.tx_hash + '" target="_blank">' + o.tx_hash.substring(0, 24) + '...</a></td></tr>';
+                    html += '<div class="pbay-detail-row"><span class="pbay-detail-label">TX:</span><span style="overflow:hidden;text-overflow:ellipsis;"><a href="' + escHtml(pbayCheckout.explorer_url + '/transaction/' + o.tx_hash) + '" target="_blank" style="color:var(--pbay-accent);text-decoration:none;word-break:break-all;">' + escHtml(o.tx_hash.substring(0, 24)) + '...</a></span></div>';
                 }
                 if (o.tracking_number) {
-                    html += '<tr><td><strong>Tracking:</strong></td><td>' + (o.tracking_carrier || '') + ' ' + o.tracking_number + '</td></tr>';
+                    html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Tracking:</span><span>' + escHtml(o.tracking_carrier || '') + ' ' + escHtml(o.tracking_number) + '</span></div>';
                 }
-                html += '<tr><td><strong>Date:</strong></td><td>' + (o.created_at || '') + '</td></tr>';
-                html += '</table>';
+                html += '<div class="pbay-detail-row"><span class="pbay-detail-label">Date:</span><span>' + escHtml(o.created_at || '') + '</span></div>';
+                html += '</div>';
                 $result.html(html);
             } else {
                 $result.html('<p style="color:#ff4d6a;">' + (response.data.message || 'Not found') + '</p>');
@@ -503,6 +514,21 @@
         if (!str) return '';
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
+
+    // ========================================
+    // My Orders Tooltip (Catalog)
+    // ========================================
+
+    $(document).on('click', '#pbay-my-orders-btn', function (e) {
+        e.stopPropagation();
+        $('#pbay-my-orders-tooltip').toggleClass('active');
+    });
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.pbay-my-orders-wrap').length) {
+            $('#pbay-my-orders-tooltip').removeClass('active');
+        }
+    });
 
     // ========================================
     // Init

@@ -28,6 +28,7 @@
     padding: 2.5rem 1.25rem;
     position: relative;
     z-index: 1;
+    overflow-x: hidden;
 }
 
 .pbay-page-container {
@@ -68,14 +69,21 @@
 .pbay-order-history,
 .pbay-order-confirmation {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     color: var(--pbay-text);
     position: relative;
     z-index: 1;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-.pbay-catalog *, .pbay-product-detail *, .pbay-order-history * {
+.pbay-catalog, .pbay-catalog *,
+.pbay-product-detail, .pbay-product-detail *,
+.pbay-order-history, .pbay-order-history *,
+.pbay-modal, .pbay-modal *,
+.pbay-order-confirmation, .pbay-order-confirmation * {
     box-sizing: border-box;
 }
 
@@ -141,9 +149,82 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--pbay-card-border);
+}
+
+.pbay-cat-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* My Orders button & tooltip */
+.pbay-my-orders-wrap {
+    position: relative;
+}
+
+.pbay-btn-my-orders {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 1rem;
+    background: var(--pbay-card-bg);
+    color: var(--pbay-accent);
+    border: 1px solid var(--pbay-accent);
+    border-radius: 2rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.pbay-btn-my-orders:hover {
+    background: var(--pbay-accent);
+    color: #000;
+}
+
+.pbay-my-orders-tooltip {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    width: 18rem;
+    background: #1a1e24;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    animation: pbayTooltipFadeIn 0.15s ease-out;
+}
+
+.pbay-my-orders-tooltip.active {
+    display: block;
+}
+
+.pbay-my-orders-tooltip p {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 1rem;
+}
+
+.pbay-my-orders-tooltip .pbay-btn-small {
+    font-size: 0.8125rem;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    text-decoration: none;
+}
+
+@keyframes pbayTooltipFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .pbay-cat-link {
@@ -347,10 +428,14 @@
 
 .pbay-product-image-large {
     position: relative;
+    overflow: hidden;
+    max-width: 100%;
 }
 
 .pbay-product-image-large > img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
     border-radius: 0.5rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
@@ -366,6 +451,8 @@
     display: flex;
     gap: 0.5rem;
     margin-top: 0.75rem;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .pbay-gallery-thumb {
@@ -402,6 +489,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .pbay-nft-badge a {
@@ -428,9 +516,44 @@
     font-size: 1.625rem;
     font-weight: 700;
     color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.pbay-shipping-add {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.pbay-product-total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--pbay-accent);
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pbay-free-shipping {
+    font-size: 0.875rem;
+    color: #50c878;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Catalog shipping labels */
+.pbay-shipping-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.125rem;
+}
+
+.pbay-free-shipping-label {
+    color: #50c878;
 }
 
 .pbay-ada-price {
@@ -450,10 +573,13 @@
 
 .pbay-detail-row {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
     padding: 0.625rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.9);
+    min-width: 0;
 }
 
 .pbay-detail-row:last-child {
@@ -570,6 +696,7 @@
     max-width: 640px;
     max-height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 212, 255, 0.1);
     color: var(--pbay-text);
 }
@@ -748,10 +875,13 @@
 .pbay-summary-item {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.25rem;
     padding: 0.5rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.8);
+    min-width: 0;
 }
 
 .pbay-summary-item:last-child {
@@ -855,9 +985,12 @@
 .pbay-confirm-row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.25rem;
     padding: 0.5rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.8);
+    min-width: 0;
 }
 
 .pbay-confirm-row:last-child {
@@ -946,6 +1079,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     padding: 0.75rem 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1072,10 +1207,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
     padding: 0.375rem 0;
     font-size: 0.8125rem;
     color: rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    min-width: 0;
 }
 
 .pbay-order-card-row:last-child {
@@ -1091,6 +1229,11 @@
     text-decoration: none;
     font-family: monospace;
     font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .pbay-order-card-row a:hover {
@@ -1124,6 +1267,27 @@
         gap: 1.5rem;
     }
 
+    .pbay-product-detail {
+        padding: 1.5rem;
+    }
+
+    .pbay-product-image-large > img {
+        max-height: 50vh;
+        object-fit: contain;
+    }
+
+    .pbay-ada-price {
+        display: block;
+        margin-left: 0;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+    }
+
+    .pbay-nft-badge a {
+        margin-left: 0;
+        width: 100%;
+    }
+
     .pbay-wallet-status-card {
         flex-direction: column;
         text-align: center;
@@ -1131,6 +1295,15 @@
 
     .pbay-form-row-half {
         grid-template-columns: 1fr;
+    }
+
+    .pbay-form-actions {
+        flex-direction: column;
+    }
+
+    .pbay-form-actions .pbay-btn {
+        width: 100%;
+        text-align: center;
     }
 
     .pbay-modal-content {
@@ -1142,6 +1315,11 @@
         flex-direction: column;
     }
 
+    .pbay-lookup-form .pbay-btn {
+        width: 100%;
+        text-align: center;
+    }
+
     .pbay-order-card-header {
         flex-wrap: wrap;
     }
@@ -1149,15 +1327,25 @@
     .pbay-order-card-status {
         margin-left: auto;
     }
+
+    .pbay-confirmation-details code,
+    .pbay-confirmation-card code {
+        font-size: 0.65rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .pbay-page-wrapper {
+        padding: 1rem 0.75rem;
+    }
+
     .pbay-cols-2, .pbay-cols-3, .pbay-cols-4 {
         grid-template-columns: 1fr;
     }
 
     .pbay-product-detail {
-        padding: 1rem;
+        padding: 0.875rem;
+        border-radius: 0.5rem;
     }
 
     .pbay-product-info-detail h1 {
@@ -1166,5 +1354,56 @@
 
     .pbay-product-price-large {
         font-size: 1.25rem;
+    }
+
+    .pbay-detail-label {
+        min-width: 5.5rem;
+        font-size: 0.8125rem;
+    }
+
+    .pbay-detail-card {
+        padding: 0.75rem;
+    }
+
+    .pbay-modal-content {
+        width: 98%;
+        padding: 1.25rem 1rem 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .pbay-gallery-thumbs {
+        gap: 0.375rem;
+    }
+
+    .pbay-gallery-thumb {
+        min-width: 0;
+    }
+
+    .pbay-order-card-body {
+        padding: 0.625rem 0.875rem 0.75rem;
+    }
+
+    .pbay-order-card-header {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .pbay-order-card-row strong {
+        word-break: break-word;
+    }
+
+    .pbay-confirmation-details,
+    .pbay-confirmation-card {
+        padding: 0.75rem;
+    }
+
+    .pbay-confirmation-details code,
+    .pbay-confirmation-card code {
+        font-size: 0.6rem;
+    }
+
+    #pbay-buy-now {
+        font-size: 1rem;
+        padding: 0.875rem 1.5rem;
     }
 }

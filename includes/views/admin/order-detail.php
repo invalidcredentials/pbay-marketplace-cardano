@@ -42,10 +42,27 @@ $explorer = ($network === 'mainnet') ? 'https://cardanoscan.io' : 'https://prepr
                 <span class="pbay-info-label">Product</span>
                 <span class="pbay-info-value"><?php echo esc_html($listing ? $listing['title'] : 'N/A'); ?></span>
             </div>
-            <div class="pbay-info-row">
-                <span class="pbay-info-label">Price</span>
-                <span class="pbay-info-value">$<?php echo esc_html(number_format($order['price_usd'], 2)); ?> <small style="color:#666;">(<?php echo esc_html(number_format($order['price_ada'], 6)); ?> ADA)</small></span>
-            </div>
+            <?php $order_shipping = floatval($order['shipping_rate'] ?? 0); ?>
+            <?php if ($order_shipping > 0): ?>
+                <?php $order_item_price = floatval($order['price_usd']) - $order_shipping; ?>
+                <div class="pbay-info-row">
+                    <span class="pbay-info-label">Item Price</span>
+                    <span class="pbay-info-value">$<?php echo esc_html(number_format($order_item_price, 2)); ?></span>
+                </div>
+                <div class="pbay-info-row">
+                    <span class="pbay-info-label">Shipping</span>
+                    <span class="pbay-info-value">$<?php echo esc_html(number_format($order_shipping, 2)); ?></span>
+                </div>
+                <div class="pbay-info-row">
+                    <span class="pbay-info-label">Total</span>
+                    <span class="pbay-info-value"><strong>$<?php echo esc_html(number_format($order['price_usd'], 2)); ?></strong> <small style="color:#666;">(<?php echo esc_html(number_format($order['price_ada'], 6)); ?> ADA)</small></span>
+                </div>
+            <?php else: ?>
+                <div class="pbay-info-row">
+                    <span class="pbay-info-label">Price</span>
+                    <span class="pbay-info-value">$<?php echo esc_html(number_format($order['price_usd'], 2)); ?> <small style="color:#666;">(<?php echo esc_html(number_format($order['price_ada'], 6)); ?> ADA)</small></span>
+                </div>
+            <?php endif; ?>
             <div class="pbay-info-row">
                 <span class="pbay-info-label">Exchange Rate</span>
                 <span class="pbay-info-value">$<?php echo esc_html(number_format($order['exchange_rate'] ?? 0, 4)); ?>/ADA</span>

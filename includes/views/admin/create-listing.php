@@ -211,6 +211,17 @@
                     </div>
 
                     <div class="pbay-field-group">
+                        <div class="pbay-field-row">
+                            <div class="pbay-field pbay-field-half">
+                                <label for="pbay-shipping-rate">Shipping &amp; Handling (USD) <span style="color:#d63638;">*</span></label>
+                                <input type="number" name="shipping_rate" id="pbay-shipping-rate" value="<?php echo esc_attr($listing['shipping_rate'] ?? '0.00'); ?>" step="0.01" min="0" class="regular-text" required placeholder="$0.00" />
+                                <p class="description">Enter 0 for free shipping.</p>
+                            </div>
+                            <div class="pbay-field pbay-field-half">
+                                <label for="pbay-ships-to">Ships To</label>
+                                <input type="text" name="ships_to" id="pbay-ships-to" value="<?php echo esc_attr($listing['ships_to'] ?? ''); ?>" class="regular-text" placeholder="US, Canada, UK or Worldwide" />
+                            </div>
+                        </div>
                         <div class="pbay-field">
                             <label for="pbay-ships-from">Ships From</label>
                             <input type="text" name="ships_from" id="pbay-ships-from" value="<?php echo esc_attr($listing['ships_from'] ?? ''); ?>" class="regular-text" placeholder="City, State" />

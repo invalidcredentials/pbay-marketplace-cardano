@@ -78,7 +78,15 @@
                     <strong id="pbay-summary-product"></strong>
                 </div>
                 <div class="pbay-summary-item">
-                    <span>Price:</span>
+                    <span>Item Price:</span>
+                    <strong id="pbay-summary-item-price"></strong>
+                </div>
+                <div class="pbay-summary-item">
+                    <span>Shipping:</span>
+                    <strong id="pbay-summary-shipping-cost"></strong>
+                </div>
+                <div class="pbay-summary-item">
+                    <span>Total:</span>
                     <strong id="pbay-summary-price-usd"></strong>
                 </div>
                 <div class="pbay-summary-item pbay-summary-ada">

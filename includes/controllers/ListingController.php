@@ -113,6 +113,8 @@ class ListingController {
             'dimensions' => sanitize_text_field(wp_unslash($_POST['dimensions'] ?? '')),
             'ships_from' => sanitize_text_field(wp_unslash($_POST['ships_from'] ?? '')),
             'shipping_notes' => sanitize_textarea_field(wp_unslash($_POST['shipping_notes'] ?? '')),
+            'shipping_rate' => floatval($_POST['shipping_rate'] ?? 0),
+            'ships_to' => sanitize_text_field(wp_unslash($_POST['ships_to'] ?? '')),
             'status' => sanitize_text_field($_POST['status'] ?? 'draft'),
         ];
 

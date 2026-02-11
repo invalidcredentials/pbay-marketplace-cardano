@@ -53,10 +53,27 @@
         <div class="pbay-product-info-detail">
             <h1 class="pbay-product-title"><?php echo esc_html($listing['title']); ?></h1>
 
-            <div class="pbay-product-price-large">
-                $<?php echo esc_html(number_format($listing['price_usd'], 2)); ?> USD
-                <span class="pbay-ada-price" id="pbay-product-ada-price"></span>
-            </div>
+            <?php
+            $item_price = floatval($listing['price_usd']);
+            $shipping_rate = floatval($listing['shipping_rate'] ?? 0);
+            $total_price = $item_price + $shipping_rate;
+            ?>
+            <?php if ($shipping_rate > 0): ?>
+                <div class="pbay-product-price-large">
+                    $<?php echo esc_html(number_format($item_price, 2)); ?>
+                    <span class="pbay-shipping-add">+ $<?php echo esc_html(number_format($shipping_rate, 2)); ?> shipping</span>
+                </div>
+                <div class="pbay-product-total">
+                    Total: $<?php echo esc_html(number_format($total_price, 2)); ?> USD
+                    <span class="pbay-ada-price" id="pbay-product-ada-price"></span>
+                </div>
+            <?php else: ?>
+                <div class="pbay-product-price-large">
+                    $<?php echo esc_html(number_format($item_price, 2)); ?> USD
+                    <span class="pbay-ada-price" id="pbay-product-ada-price"></span>
+                </div>
+                <div class="pbay-free-shipping">Free Shipping</div>
+            <?php endif; ?>
 
             <!-- Product specs card -->
             <div class="pbay-detail-card">
@@ -78,6 +95,13 @@
                     <span class="pbay-detail-label">Available:</span>
                     <span><?php echo esc_html($stock); ?> of <?php echo esc_html($listing['quantity']); ?></span>
                 </div>
+
+                <?php if (!empty($listing['ships_to'])): ?>
+                    <div class="pbay-detail-row">
+                        <span class="pbay-detail-label">Ships to:</span>
+                        <span><?php echo esc_html($listing['ships_to']); ?></span>
+                    </div>
+                <?php endif; ?>
 
                 <?php if (!empty($listing['ships_from'])): ?>
                     <div class="pbay-detail-row">
@@ -121,8 +145,8 @@
 
             <!-- Buy Button -->
             <?php if ($stock > 0): ?>
-                <button type="button" class="pbay-btn pbay-btn-primary pbay-btn-large" id="pbay-buy-now" data-listing-id="<?php echo esc_attr($listing['id']); ?>" data-price-usd="<?php echo esc_attr($listing['price_usd']); ?>">
-                    Buy Now &mdash; $<?php echo esc_html(number_format($listing['price_usd'], 2)); ?>
+                <button type="button" class="pbay-btn pbay-btn-primary pbay-btn-large" id="pbay-buy-now" data-listing-id="<?php echo esc_attr($listing['id']); ?>" data-price-usd="<?php echo esc_attr($total_price); ?>" data-item-price="<?php echo esc_attr($item_price); ?>" data-shipping-rate="<?php echo esc_attr($shipping_rate); ?>">
+                    Buy Now &mdash; $<?php echo esc_html(number_format($total_price, 2)); ?>
                 </button>
             <?php else: ?>
                 <span class="pbay-btn pbay-btn-disabled pbay-btn-large">Sold Out</span>

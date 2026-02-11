@@ -54,6 +54,15 @@
             alert('Please enter a valid price.');
             return;
         }
+
+        // Auto-save as draft when leaving step 5 (Shipping) → step 6 (Review)
+        if (currentStep === 5) {
+            autoSaveDraft(function () {
+                goToStep(6);
+            });
+            return;
+        }
+
         goToStep(currentStep + 1);
     });
 
@@ -435,6 +444,33 @@
     $(document).on('click', '#pbay-save-draft', function () {
         saveListing('draft');
     });
+
+    /**
+     * Auto-save as draft with callback on success.
+     * Shows a brief inline status, then fires the callback.
+     */
+    function autoSaveDraft(callback) {
+        var $messages = $('#pbay-listing-messages');
+        $messages.html('<p>Auto-saving draft...</p>');
+
+        var $form = $('#pbay-listing-form');
+        var data = $form.serializeArray();
+        data.push({ name: 'action', value: 'pbay_save_listing' });
+        data.push({ name: 'nonce', value: pbayAdmin.nonce });
+        data.push({ name: 'status', value: 'draft' });
+
+        $.post(pbayAdmin.ajaxurl, $.param(data), function (response) {
+            if (response.success) {
+                $('input[name="listing_id"]').val(response.data.listing_id);
+                $messages.html('<div class="notice notice-success"><p>Draft saved.</p></div>');
+                if (callback) callback();
+            } else {
+                $messages.html('<div class="notice notice-error"><p>' + (response.data.message || 'Auto-save failed') + '</p></div>');
+            }
+        }).fail(function () {
+            $messages.html('<div class="notice notice-error"><p>Network error during auto-save.</p></div>');
+        });
+    }
 
     function saveListing(status) {
         var $form = $('#pbay-listing-form');

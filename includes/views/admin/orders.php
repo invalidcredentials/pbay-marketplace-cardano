@@ -78,7 +78,13 @@
                             <td><strong><a href="<?php echo admin_url('admin.php?page=pbay-orders&order_id=' . $order['id']); ?>"><?php echo esc_html($order['order_id']); ?></a></strong></td>
                             <td><?php echo esc_html($order['listing_title'] ?? 'N/A'); ?></td>
                             <td><code class="pbay-policy-code"><?php echo esc_html(substr($order['buyer_address'], 0, 20) . '...'); ?></code></td>
-                            <td>$<?php echo esc_html(number_format($order['price_usd'], 2)); ?><br/><small><?php echo esc_html(number_format($order['price_ada'], 2)); ?> ADA</small></td>
+                            <td>
+                                $<?php echo esc_html(number_format($order['price_usd'], 2)); ?>
+                                <?php $o_ship = floatval($order['shipping_rate'] ?? 0); if ($o_ship > 0): ?>
+                                    <br/><small style="color:#666;">(incl. $<?php echo esc_html(number_format($o_ship, 2)); ?> shipping)</small>
+                                <?php endif; ?>
+                                <br/><small><?php echo esc_html(number_format($order['price_ada'], 2)); ?> ADA</small>
+                            </td>
                             <td>
                                 <span class="pbay-status-badge pbay-status-<?php echo esc_attr($order['status']); ?>">
                                     <?php echo esc_html(ucfirst($order['status'])); ?>

@@ -55,12 +55,14 @@ class CheckoutController {
             wp_send_json_error(['message' => 'Store not configured for payments']);
         }
 
-        $usd_price = floatval($listing['price_usd']);
+        $item_price = floatval($listing['price_usd']);
+        $shipping_rate = floatval($listing['shipping_rate'] ?? 0);
+        $usd_price = $item_price + $shipping_rate;
         if ($usd_price <= 0) {
             wp_send_json_error(['message' => 'Invalid listing price']);
         }
 
-        error_log('[PBay][BUILD] listing_id=' . $listing_id . ' price_usd=' . $usd_price . ' merchant_address=' . $merchant_address . ' buyer_address=' . $buyer_address);
+        error_log('[PBay][BUILD] listing_id=' . $listing_id . ' item_price=' . $item_price . ' shipping=' . $shipping_rate . ' total=' . $usd_price . ' merchant_address=' . $merchant_address . ' buyer_address=' . $buyer_address);
 
         $build_result = AnvilAPI::buildPaymentTransaction(
             $merchant_address,
@@ -112,9 +114,11 @@ class CheckoutController {
 
         $tx_hash = $submit_result['txHash'] ?? $submit_result['hash'] ?? '';
 
-        // Calculate prices at time of purchase
+        // Calculate prices at time of purchase (total = item + shipping)
         $ada_price = PriceHelper::getAdaPrice();
-        $price_ada = PriceHelper::usdToAda($listing['price_usd']);
+        $shipping_rate = floatval($listing['shipping_rate'] ?? 0);
+        $total_usd = floatval($listing['price_usd']) + $shipping_rate;
+        $price_ada = PriceHelper::usdToAda($total_usd);
 
         // Create order record
         $order_data = [
@@ -130,7 +134,8 @@ class CheckoutController {
             'shipping_postal' => sanitize_text_field(wp_unslash($_POST['shipping_postal'] ?? '')),
             'shipping_country' => sanitize_text_field(wp_unslash($_POST['shipping_country'] ?? '')),
             'shipping_phone' => sanitize_text_field(wp_unslash($_POST['shipping_phone'] ?? '')),
-            'price_usd' => $listing['price_usd'],
+            'price_usd' => $total_usd,
+            'shipping_rate' => $shipping_rate,
             'price_ada' => $price_ada,
             'exchange_rate' => $ada_price,
             'tx_hash' => $tx_hash,

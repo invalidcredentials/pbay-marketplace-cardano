@@ -48,6 +48,8 @@ class ListingModel {
             dimensions varchar(100) DEFAULT NULL,
             ships_from varchar(100) DEFAULT NULL,
             shipping_notes text,
+            shipping_rate decimal(10,2) NOT NULL DEFAULT 0.00,
+            ships_to varchar(255) DEFAULT NULL,
             status varchar(20) NOT NULL DEFAULT 'draft',
             created_at datetime NOT NULL,
             updated_at datetime NOT NULL,
@@ -120,6 +122,8 @@ class ListingModel {
             'dimensions' => $data['dimensions'] ?? null,
             'ships_from' => $data['ships_from'] ?? null,
             'shipping_notes' => $data['shipping_notes'] ?? null,
+            'shipping_rate' => floatval($data['shipping_rate'] ?? 0),
+            'ships_to' => $data['ships_to'] ?? null,
             'status' => $data['status'] ?? 'draft',
             'created_at' => $now,
             'updated_at' => $now,
@@ -141,7 +145,8 @@ class ListingModel {
             'nft_metadata', 'mint_tx_hash', 'image_id', 'ipfs_cid', 'ipfs_cid_manual',
             'gallery_ids', 'price_usd', 'price_ada', 'category_id', 'category',
             'condition_type', 'quantity', 'quantity_sold', 'weight_lbs', 'dimensions',
-            'ships_from', 'shipping_notes', 'status', 'published_at', 'sold_at',
+            'ships_from', 'shipping_notes', 'shipping_rate', 'ships_to',
+            'status', 'published_at', 'sold_at',
         ];
 
         foreach ($allowed as $field) {

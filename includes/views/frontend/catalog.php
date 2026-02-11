@@ -2,10 +2,27 @@
 <div class="pbay-catalog">
     <?php if (!empty($categories)): ?>
         <div class="pbay-category-filter">
-            <a href="?" class="pbay-cat-link <?php echo empty($category) ? 'active' : ''; ?>">All</a>
-            <?php foreach ($categories as $cat): ?>
-                <a href="?pbay_cat=<?php echo esc_attr(urlencode($cat)); ?>" class="pbay-cat-link <?php echo ($category === $cat) ? 'active' : ''; ?>"><?php echo esc_html($cat); ?></a>
-            <?php endforeach; ?>
+            <div class="pbay-cat-links">
+                <a href="?" class="pbay-cat-link <?php echo empty($category) ? 'active' : ''; ?>">All</a>
+                <?php foreach ($categories as $cat): ?>
+                    <a href="?pbay_cat=<?php echo esc_attr(urlencode($cat)); ?>" class="pbay-cat-link <?php echo ($category === $cat) ? 'active' : ''; ?>"><?php echo esc_html($cat); ?></a>
+                <?php endforeach; ?>
+            </div>
+            <div class="pbay-my-orders-wrap">
+                <button type="button" class="pbay-btn pbay-btn-my-orders" id="pbay-my-orders-btn">My Orders</button>
+                <div class="pbay-my-orders-tooltip" id="pbay-my-orders-tooltip">
+                    <p>Your orders automatically show up here when your wallet is connected. Just connect the same wallet you used to purchase and you'll see your order history, tracking info, and NFT delivery status.</p>
+                    <?php
+                    // Find the page with [pbay-orders] shortcode
+                    global $wpdb;
+                    $orders_page_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND post_content LIKE '%[pbay-orders%' LIMIT 1");
+                    $orders_url = $orders_page_id ? get_permalink($orders_page_id) : '';
+                    ?>
+                    <?php if ($orders_url): ?>
+                        <a href="<?php echo esc_url($orders_url); ?>" class="pbay-btn pbay-btn-primary pbay-btn-small">Go to My Orders</a>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     <?php endif; ?>
 
@@ -42,6 +59,12 @@
 
                         <div class="pbay-product-price">
                             $<?php echo esc_html(number_format($item['price_usd'], 2)); ?>
+                            <?php $item_shipping = floatval($item['shipping_rate'] ?? 0); ?>
+                            <?php if ($item_shipping > 0): ?>
+                                <span class="pbay-shipping-label">+ $<?php echo esc_html(number_format($item_shipping, 2)); ?> shipping</span>
+                            <?php else: ?>
+                                <span class="pbay-shipping-label pbay-free-shipping-label">Free Shipping</span>
+                            <?php endif; ?>
                         </div>
 
                         <?php if (!empty($item['condition_type'])): ?>
